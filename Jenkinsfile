@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        BUILD_CLIENT = 'false' // Set to 'false' to skip client build
+        BUILD_CLIENT = 'true' // Set to 'false' to skip client build
         BUILD_API = 'true'    // Set to 'false' to skip API build
     }
 
