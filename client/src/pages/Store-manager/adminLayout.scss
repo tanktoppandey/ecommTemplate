@@ -1,0 +1,16 @@
+.admin-app {
+  display: flex;
+  padding-top: 10px;
+}
+
+
+
+.content {
+   /* Same width as the sidebar */
+  padding: 20px; /* Add padding as needed */
+  flex: 1;
+  overflow-y: auto; /* Allow the content to scroll */
+  height: 100vh; /* Ensure it takes the full height for scrolling */
+}
+
+
