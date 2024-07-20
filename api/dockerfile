@@ -1,23 +1,19 @@
-# Use an official Node.js runtime as a parent image
-FROM node:14
+FROM node:18-alpine
+# Installing libvips-dev for sharp Compatibility
+RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev nasm bash vips-dev git
+ARG NODE_ENV=development
+ENV NODE_ENV=${NODE_ENV}
 
-# Set the working directory in the container
-WORKDIR /app
+WORKDIR /opt/
+COPY package.json package-lock.json ./
+RUN npm install -g node-gyp
+RUN npm config set fetch-retry-maxtimeout 600000 -g && npm install
+ENV PATH /opt/node_modules/.bin:$PATH
 
-# Copy the package.json and package-lock.json
-COPY package*.json ./
-
-# Install app dependencies
-RUN npm install
-
-# Install `ajv` as a dev dependency
-RUN npm install --save-dev ajv
-
-# Copy the rest of the application code
+WORKDIR /opt/app
 COPY . .
-
-# Expose the application port
+RUN chown -R node:node /opt/app
+USER node
+RUN ["npm", "run", "build"]
 EXPOSE 1337
-
-# Start the application
 CMD ["npm", "run", "develop"]
