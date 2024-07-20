@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/username/repo.git'
+                git 'https://github.com/tanktoppandey/ecommTemplate.git'
             }
         }
 
